@@ -1,0 +1,5 @@
+// 1.19.2	2024-02-13T18:35:49.3721201	Tags for minecraft:block
+449c5dd29d9800a8b7eb4feb632b0162834ccf90 data\coffins\tags\blocks\coffin_replaceable.json
+f1c99402a1061bd0dafa670ba3323bda5a93827f data\minecraft\tags\blocks\mineable\pickaxe.json
+f1c99402a1061bd0dafa670ba3323bda5a93827f data\minecraft\tags\blocks\dragon_immune.json
+f1c99402a1061bd0dafa670ba3323bda5a93827f data\minecraft\tags\blocks\mineable\axe.json

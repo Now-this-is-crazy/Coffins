@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "coffins:coffin"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "coffins:coffin",
+          "properties": {
+            "fragile": "false"
+          }
+        }
+      ]
+    }
+  ]
+}

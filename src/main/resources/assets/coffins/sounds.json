@@ -1,0 +1,15 @@
+{
+  "coffin_open": {
+    "subtitle": "subtitles.coffins.coffin_open",
+    "sounds": [
+      "coffins:coffin_open"
+    ]
+  },
+  "coffin_close": {
+    "subtitle": "subtitles.coffins.coffin_close",
+    "sounds": [
+      "coffins:coffin_close"
+    ]
+  }
+}
+

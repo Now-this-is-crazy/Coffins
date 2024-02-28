@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:air",
+    "minecraft:cave_air",
+    "minecraft:seagrass",
+    "minecraft:tall_seagrass",
+    "minecraft:kelp",
+    "minecraft:kelp_plant",
+    "#minecraft:small_flowers",
+    "#minecraft:tall_flowers",
+    "#minecraft:saplings",
+    "#minecraft:coral_plants",
+    "#minecraft:replaceable_plants",
+    "#minecraft:crops",
+    "minecraft:snow",
+    "minecraft:moss_carpet",
+    "minecraft:cave_vines",
+    "minecraft:cave_vines_plant",
+    "minecraft:sculk_vein",
+    "minecraft:water",
+    "minecraft:lava"
+  ]
+}

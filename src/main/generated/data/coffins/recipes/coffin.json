@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "0": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "1": {
+      "tag": "minecraft:planks"
+    },
+    "2": {
+      "item": "minecraft:iron_ingot"
+    },
+    "3": {
+      "tag": "coffins:base_containers"
+    }
+  },
+  "pattern": [
+    "010",
+    "232",
+    "010"
+  ],
+  "result": {
+    "item": "coffins:coffin"
+  }
+}

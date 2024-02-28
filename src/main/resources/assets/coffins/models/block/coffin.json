@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "coffins:block/coffin_top",
+    "down": "coffins:block/coffin_bottom",
+    "north": "coffins:block/coffin_side",
+    "south": "coffins:block/coffin_side",
+    "east": "coffins:block/coffin_side",
+    "west": "coffins:block/coffin_side",
+    "particle": "coffins:block/coffin_side"
+  }
+}

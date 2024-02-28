@@ -1,0 +1,9 @@
+{
+  "item.coffins.tome_of_fragility": "Tome of Fragility",
+  "block.coffins.coffin": "Coffin",
+  "itemGroup.coffins.coffins": "Coffins",
+  "name.coffins.coffin": "Coffin",
+
+  "subtitles.coffins.coffin_open": "Coffin opens",
+  "subtitles.coffins.coffin_close": "Coffin closes"
+}

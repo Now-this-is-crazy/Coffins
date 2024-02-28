@@ -1,0 +1,47 @@
+{
+	"schemaVersion": 1,
+	"id": "coffins",
+	"version": "${version}",
+	"name": "Coffins",
+	"description": "Adds coffins to the game, that store your items upon death, which can also be used as storage unit.",
+	"authors": [
+		"Powercyphe",
+		"oPixeel"
+	],
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/Dmp2dbyNrs"
+			}
+		}
+	},
+	"contact": {
+		"homepage": "https://modrinth.com/project/coffins/"
+	},
+	"license": "ARR",
+	"icon": "assets/coffins/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+          "powercyphe.coffins.Mod"
+		],
+		"client": [
+			"powercyphe.coffins.ModClient"
+		],
+		"fabric-datagen": [
+			"powercyphe.coffins.ModDataGen"
+		]
+	},
+	"mixins": [
+		"mod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.24",
+		"minecraft": "~1.19.2",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

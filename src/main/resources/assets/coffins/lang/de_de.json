@@ -1,0 +1,9 @@
+{
+  "item.coffins.tome_of_fragility": "Zauber der Zerbrechlichkeit",
+  "block.coffins.coffin": "Sarg",
+  "itemGroup.coffins.coffins": "Coffins",
+  "name.coffins.coffin": "Sarg",
+
+  "subtitles.coffins.coffin_open": "Sarg öffnet",
+  "subtitles.coffins.coffin_close": "Sarg schließt"
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "open=true": {
+      "model": "coffins:block/coffin_open"
+    },
+    "open=false": {
+      "model": "coffins:block/coffin"
+    }
+  }
+}
