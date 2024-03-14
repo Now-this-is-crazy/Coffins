@@ -37,7 +37,8 @@ public class Mod implements ModInitializer {
 		ModSounds.registerModSounds();
 		ModLootTableModifier.modifyLootTables();
 
-		if (isTrinketsLoaded) TrinketDropEvent.registerCallback();
+		if (isTrinketsLoaded) {
+			TrinketDropEvent.registerCallback(); }
 
 		ServerPlayerEvents.AFTER_RESPAWN.register(new PlayerRespawnEvent());
 
