@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import powercyphe.coffins.Mod;
 import powercyphe.coffins.block.ModBlocks;
 import powercyphe.coffins.block.entity.CoffinBlockEntity;
+import powercyphe.coffins.modsupport.ModSupportManager;
 import powercyphe.coffins.util.IEntityDataSaver;
 import powercyphe.coffins.util.ModTags;
 import powercyphe.coffins.util.RecoveryCompassData;
@@ -54,17 +55,8 @@ public abstract class PlayerEntityMixin implements IEntityDataSaver {
             inventory.add(this.getInventory().getStack(i));
         }
 
-        // If Trinkets is loaded & the player has a trinket component,
-        // we repeat through all the player's equipped trinkets and add them to the
-        // inventory (coffin).
-
-        if (Mod.isTrinketsLoaded && TrinketsApi.getTrinketComponent(player).isPresent()) {
-            TrinketsApi.getTrinketComponent(player).ifPresent(trinkets -> trinkets.forEach((ref, stack) -> {
-                if (!stack.isEmpty()) {
-                    inventory.add(stack);
-                }
-            }));
-        }
+        // Add items from all the mods we support
+        inventory.addAll(ModSupportManager.getAllModSupportedDrops(player));
 
         int itemsAmount = 0;
         DefaultedList<ItemStack> items = DefaultedList.ofSize(54, ItemStack.EMPTY);
