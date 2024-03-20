@@ -1,19 +1,19 @@
 package powercyphe.coffins.mixin;
 
-import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,8 +38,6 @@ public abstract class PlayerEntityMixin implements IEntityDataSaver {
     @Shadow public abstract PlayerInventory getInventory();
 
     @Shadow protected abstract void vanishCursedItems();
-
-    @Shadow @Final private PlayerInventory inventory;
 
     @Inject(method = "dropInventory", at = @At("HEAD"))
     private void dropInventory(CallbackInfo ci) {
@@ -88,11 +86,29 @@ public abstract class PlayerEntityMixin implements IEntityDataSaver {
         if (!items.isEmpty() && itemsAmount > 0) {
             TreeMap<BlockPos, Integer> distanceMap = new TreeMap<>();
             World world = player.getWorld();
+            Identifier dimension = world.getDimensionEntry().getKey().get().getValue();
 
             BlockPos playerPos = player.getBlockPos();
             boolean shift = true;
+            boolean skipCheck = false;
             while (shift) {
                 BlockPos shiftPos = playerPos.down(1);
+                if (dimension.toString().contains("minecraft:the_end") && playerPos.getY() < 40) {
+                    if (playerPos.getY() < 1) playerPos = playerPos.withY(1);
+                    distanceMap.put(playerPos, 1);
+                    BlockPos platformPos = playerPos.add(-2, -1 ,-1);
+                    int platform = 0;
+                    while (platform < 9) {
+                        platformPos = platformPos.add(1, 0, 0);
+                        if (world.getBlockState(platformPos) == Blocks.AIR.getDefaultState()) world.setBlockState(platformPos, Blocks.OBSIDIAN.getDefaultState());
+                        platform++;
+                        if (platform % 3 == 0) {
+                            platformPos = platformPos.add(-3, 0, 1);
+                        }
+                    }
+                    skipCheck = true;
+                    shift = false;
+                }
                 if (player.getWorld().getBlockState(shiftPos).isIn(ModTags.Blocks.COFFIN_REPLACEABLE)) {
                     playerPos = shiftPos;
                 } else {
@@ -101,38 +117,41 @@ public abstract class PlayerEntityMixin implements IEntityDataSaver {
 
             }
 
-            int xPlayer = playerPos.getX();
-            int yPlayer = playerPos.getY();
-            int zPlayer = playerPos.getZ();
+            if (!skipCheck) {
+                int xPlayer = playerPos.getX();
+                int yPlayer = playerPos.getY();
+                int zPlayer = playerPos.getZ();
 
-            int xMin = playerPos.getX() - 16;
-            int xMax = playerPos.getX() + 16;
-            int zMin = playerPos.getZ() - 16;
-            int zMax = playerPos.getZ() + 16;
+                int xMin = playerPos.getX() - 16;
+                int xMax = playerPos.getX() + 16;
+                int zMin = playerPos.getZ() - 16;
+                int zMax = playerPos.getZ() + 16;
 
-            for (int x = xMin; x < xMax; x++) {
-                for (int z = zMin; z < zMax; z++) {
-                    for (int y = -64; y < 255; y++) {
-                        BlockPos blockPos = new BlockPos(x, y, z);
-                        int distance = 0;
-                        if (
-                                player.getWorld().getBlockState(blockPos).isIn(ModTags.Blocks.COFFIN_REPLACEABLE) &&
-                                                player.getWorld().getWorldBorder().contains(x, z)
-                        ) {
-                            distance = distance + Math.abs(x - xPlayer) + Math.abs(y - yPlayer) + Math.abs(z - zPlayer);
-                            distanceMap.put(blockPos, distance);
+                int bottomY = world.getBottomY();
+                int topY = world.getTopY();
+
+                for (int x = xMin; x < xMax; x++) {
+                    for (int z = zMin; z < zMax; z++) {
+                        for (int y = bottomY; y < topY; y++) {
+                            BlockPos blockPos = new BlockPos(x, y, z);
+                            int distance = 0;
+                            if (
+                                    player.getWorld().getBlockState(blockPos).isIn(ModTags.Blocks.COFFIN_REPLACEABLE) &&
+                                            player.getWorld().getWorldBorder().contains(x, z)
+                            ) {
+                                distance = distance + Math.abs(x - xPlayer) + Math.abs(y - yPlayer) + Math.abs(z - zPlayer);
+                                distanceMap.put(blockPos, distance);
+                            }
                         }
                     }
                 }
             }
-            List<Map.Entry<BlockPos, Integer>> entryList = new ArrayList<>(distanceMap.entrySet());
-            entryList.sort(Map.Entry.comparingByValue());
-            int sizeCheck = entryList.size();
-            if (sizeCheck > 0) {
-                BlockPos blockPos = entryList.get(1).getKey();
+                List<Map.Entry<BlockPos, Integer>> entryList = new ArrayList<>(distanceMap.entrySet());
+                entryList.sort(Map.Entry.comparingByValue());
+            if (!entryList.isEmpty()) {
+                BlockPos blockPos = entryList.get(0).getKey();
                 BlockState blockState = ModBlocks.COFFIN.getDefaultState();
-
-//                    player.sendMessage(Text.literal("Your Items were dropped at " + "[" + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ() + "]"));
+                if (player.getWorld().getGameRules().getBoolean(Mod.SHOW_DEATH_COORDS)) player.sendMessage(Text.literal("Your Items were dropped at " + "§7[" + blockPos.getX() + " " + blockPos.getY() + " " + blockPos.getZ() + "]"));
                 world.setBlockState(blockPos, blockState);
                 BlockEntity blockEntity = world.getBlockEntity(blockPos);
                 if (blockEntity instanceof CoffinBlockEntity coffinBlockEntity) {
@@ -142,7 +161,7 @@ public abstract class PlayerEntityMixin implements IEntityDataSaver {
                     world.updateListeners(blockPos, blockState, blockState, 3);
                 }
             } else {
-//                    player.sendMessage(Text.literal("Your Items were dropped at " + "[" + player.getBlockPos().getX() + " " + player.getBlockPos().getY() + " " + player.getBlockPos().getZ() + "]"));
+                if (player.getWorld().getGameRules().getBoolean(Mod.SHOW_DEATH_COORDS)) player.sendMessage(Text.literal("Your Items were dropped at " + "§7[" + player.getBlockPos().getX() + " " + player.getBlockPos().getY() + " " + player.getBlockPos().getZ() + "]"));
                 ItemScatterer.spawn(world, player.getBlockPos(), items);
             }
         }
