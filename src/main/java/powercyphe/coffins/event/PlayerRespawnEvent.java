@@ -1,15 +1,12 @@
 package powercyphe.coffins.event;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.minecraft.client.render.entity.model.WitchEntityModel;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import powercyphe.coffins.Mod;
 import powercyphe.coffins.util.IEntityDataSaver;
 import powercyphe.coffins.util.RecoveryCompassData;
@@ -25,8 +22,10 @@ public class PlayerRespawnEvent implements ServerPlayerEvents.AfterRespawn {
                     ItemStack item = Items.RECOVERY_COMPASS.getDefaultStack();
                     item.setNbt(itemNbt);
                     item.setCount(itemCount);
-                    newPlayer.getInventory().offerOrDrop(item);
-                    newPlayer.playSound(SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5f, 1f);
+                    if (!item.isEmpty()) {
+                        newPlayer.getInventory().offerOrDrop(item);
+                        newPlayer.playSound(SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5f, 1f);
+                    }
                 }
             }
             RecoveryCompassData.setNbt((IEntityDataSaver) oldPlayer, ItemStack.EMPTY);

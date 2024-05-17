@@ -17,7 +17,7 @@ public class ModBlocks {
 
     // Adding Blocks
     public static final Block COFFIN = registerBlock("coffin",
-            new CoffinBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS).sounds(BlockSoundGroup.WOOD)), ModItemGroup.COFFINS);
+            new CoffinBlock(FabricBlockSettings.copyOf(Blocks.MANGROVE_PLANKS).sounds(BlockSoundGroup.WOOD).strength(3.0F, 3600000.0F)), ModItemGroup.COFFINS);
 
     private static Block registerBlock(String name, Block block, ItemGroup tab) {
         registerBlockItem(name, block, tab);

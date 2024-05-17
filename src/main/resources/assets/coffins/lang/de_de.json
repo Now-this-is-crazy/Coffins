@@ -1,9 +1,18 @@
 {
   "item.coffins.tome_of_fragility": "Zauber der Zerbrechlichkeit",
   "block.coffins.coffin": "Sarg",
+  "block.coffins.coffin.disallowOpen": "Sarg is geschlossen!",
+  "block.coffins.coffin.disallowBreak": "Sargraub ist nicht erlaubt!",
   "itemGroup.coffins.coffins": "Coffins",
   "name.coffins.coffin": "Sarg",
 
   "subtitles.coffins.coffin_open": "Sarg öffnet",
-  "subtitles.coffins.coffin_close": "Sarg schließt"
+  "subtitles.coffins.coffin_close": "Sarg schließt",
+
+  "gamerule.keepRecoveryCompass": "Bergungskompass behalten",
+  "gamerule.keepRecoveryCompass.description": "Kontrolliert ob der Spieler seinen Bergungskompass beim Tot behalten soll",
+  "gamerule.showDeathCoordinates": "Todeskoordinaten anzeigen",
+  "gamerule.showDeathCoordinates.description": "Kontrolliert ob dem Spieler beim Sterben die Todeskoordinaten angezeigt werden oder nicht",
+  "gamerule.allowCoffinRobbing": "Sargraub erlauben",
+  "gamerule.allowCoffinRobbing.description": "Kontrolliert ob Spieler Särge von anderen Spielern öffnen kann (Nur beim Tot)"
 }

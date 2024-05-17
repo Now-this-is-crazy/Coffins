@@ -48,6 +48,7 @@ public class CoffinBlockEntity extends BlockEntity implements NamedScreenHandler
         return this.owner;
     }
 
+
     @Override
     public Text getDisplayName() {
         String translation = Text.translatable("name.coffins.coffin").getString();

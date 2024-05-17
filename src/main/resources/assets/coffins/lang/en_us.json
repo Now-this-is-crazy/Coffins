@@ -1,9 +1,19 @@
 {
   "item.coffins.tome_of_fragility": "Tome of Fragility",
   "block.coffins.coffin": "Coffin",
+  "block.coffins.coffin.disallowOpen": "Coffin is locked!",
+  "block.coffins.coffin.disallowBreak": "Coffin Robbing is disabled!",
   "itemGroup.coffins.coffins": "Coffins",
   "name.coffins.coffin": "Coffin",
 
   "subtitles.coffins.coffin_open": "Coffin opens",
-  "subtitles.coffins.coffin_close": "Coffin closes"
+  "subtitles.coffins.coffin_close": "Coffin closes",
+  "subtitles.coffins.coffin_locked": "Coffin locked",
+
+  "gamerule.keepRecoveryCompass": "Keep Recovery Compass",
+  "gamerule.keepRecoveryCompass.description": "Controls if they player should keep their recovery compass upon death",
+  "gamerule.showDeathCoordinates": "Show Death Coordinates",
+  "gamerule.showDeathCoordinates.description": "Controls whether or not to show Death Coordinates to the player upon dying",
+  "gamerule.allowCoffinRobbing": "Allow Coffin Robbing",
+  "gamerule.allowCoffinRobbing.description": "Controls if other players are allowed to look into other player's coffins (Death only)"
 }

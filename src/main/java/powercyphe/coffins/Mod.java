@@ -26,6 +26,7 @@ public class Mod implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final GameRules.Key<GameRules.BooleanRule> KEEP_RECOVERY_COMPASS = GameRuleRegistry.register("keepRecoveryCompass", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(true));
 	public static final GameRules.Key<GameRules.BooleanRule> SHOW_DEATH_COORDS = GameRuleRegistry.register("showDeathCoordinates", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(false));
+	public static final GameRules.Key<GameRules.BooleanRule> ALLOW_COFFIN_ROBBING = GameRuleRegistry.register("allowCoffinRobbing", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(true));
 
 	@Override
 	public void onInitialize() {

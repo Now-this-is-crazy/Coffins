@@ -10,6 +10,12 @@
     "sounds": [
       "coffins:coffin_close"
     ]
+  },
+  "coffin_locked": {
+    "subtitle": "subtitles.coffins.coffin_locked",
+    "sounds": [
+      "coffins:coffin_locked"
+    ]
   }
 }
 
