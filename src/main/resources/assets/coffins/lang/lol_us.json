@@ -17,5 +17,7 @@
   "gamerule.showDeathCoordinates": "Show Deth Coordnates",
   "gamerule.showDeathCoordinates.description": "Kontrolz whethr or not 2 show Deth Coordnates 2 teh playr upon dying",
   "gamerule.allowCoffinRobbing": "Allow Coffin Robbing",
-  "gamerule.allowCoffinRobbing.description": "Kontrolz if othr playrz r allowed 2 look into othr playr's coffinzz (Deth only)"
+  "gamerule.allowCoffinRobbing.description": "Kontrolz if othr playrz r allowed 2 look into othr playr's coffinzz (Deth only)",
+  "gamerule.deathRequiresCoffin": "Death Requirez Coffin",
+  "gamerule.deathRequiresCoffin.description": "Controls if coffin shud spawn only if teh playr has wan on them (On Deth)"
 }

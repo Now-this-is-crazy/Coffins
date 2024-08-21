@@ -17,5 +17,7 @@
   "gamerule.showDeathCoordinates": "Todeskoordinaten anzeigen",
   "gamerule.showDeathCoordinates.description": "Kontrolliert ob dem Spieler beim Sterben die Todeskoordinaten angezeigt werden oder nicht",
   "gamerule.allowCoffinRobbing": "Sargraub erlauben",
-  "gamerule.allowCoffinRobbing.description": "Kontrolliert ob Spieler Särge von anderen Spielern öffnen kann (Nur beim Tot)"
+  "gamerule.allowCoffinRobbing.description": "Kontrolliert ob Spieler Särge von anderen Spielern öffnen kann (Nur beim Tot)",
+  "gamerule.deathRequiresCoffin": "Tod benötigt Sarg",
+  "gamerule.deathRequiresCoffin.description": "Kontrolliert ob Särge nur platziert werden, wenn der Spieler einen dabei hat (Beim Tod)"
 }
