@@ -19,5 +19,5 @@
   "gamerule.allowCoffinRobbing": "Allow Coffin Robbing",
   "gamerule.allowCoffinRobbing.description": "Controls if other players are allowed to look into other player's coffins (Death only)",
   "gamerule.deathRequiresCoffin": "Death Requires Coffin",
-  "gamerule.deathRequiresCoffin.description": "Controls if a coffin should spawn only if the player has one on them"
+  "gamerule.deathRequiresCoffin.description": "Controls if a coffin should spawn only if the player has one on them (On Death)"
 }
