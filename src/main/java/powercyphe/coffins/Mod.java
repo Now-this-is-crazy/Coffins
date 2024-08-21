@@ -27,6 +27,7 @@ public class Mod implements ModInitializer {
 	public static final GameRules.Key<GameRules.BooleanRule> KEEP_RECOVERY_COMPASS = GameRuleRegistry.register("keepRecoveryCompass", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(true));
 	public static final GameRules.Key<GameRules.BooleanRule> SHOW_DEATH_COORDS = GameRuleRegistry.register("showDeathCoordinates", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(false));
 	public static final GameRules.Key<GameRules.BooleanRule> ALLOW_COFFIN_ROBBING = GameRuleRegistry.register("allowCoffinRobbing", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(true));
+	public static final GameRules.Key<GameRules.BooleanRule> DEATH_REQUIRES_COFFIN = GameRuleRegistry.register("deathRequiresCoffin", GameRules.Category.PLAYER, GameRuleFactory.createBooleanRule(false));
 
 	@Override
 	public void onInitialize() {

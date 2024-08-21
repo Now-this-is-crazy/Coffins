@@ -6,6 +6,7 @@ import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Items;
 import net.minecraft.tag.ItemTags;
 import powercyphe.coffins.block.ModBlocks;
+import powercyphe.coffins.item.ModItems;
 
 import java.util.function.Consumer;
 
@@ -37,6 +38,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('1', Items.SCULK)
                 .criterion(FabricRecipeProvider.hasItem(Items.SCULK),
                         FabricRecipeProvider.conditionsFromItem(Items.SCULK))
+                .offerTo(exporter);
+
+        ShapedRecipeJsonBuilder.create(ModItems.COFFIN_KEY, 1)
+                .pattern("  3")
+                .pattern("21 ")
+                .pattern("02 ")
+                .input('0', Items.FLINT)
+                .input('1', Items.BONE)
+                .input('2', Items.IRON_INGOT)
+                .input('3', Items.NETHERITE_SCRAP)
+                .criterion(FabricRecipeProvider.hasItem(Items.NETHERITE_SCRAP),
+                        FabricRecipeProvider.conditionsFromItem(Items.NETHERITE_SCRAP))
                 .offerTo(exporter);
 
     }

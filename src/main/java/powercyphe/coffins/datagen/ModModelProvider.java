@@ -19,6 +19,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.TOME_OF_FRAGILITY, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COFFIN_KEY, Models.GENERATED);
 
     }
 }

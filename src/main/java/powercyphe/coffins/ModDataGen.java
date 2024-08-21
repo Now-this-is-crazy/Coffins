@@ -7,7 +7,6 @@ import powercyphe.coffins.datagen.*;
 public class ModDataGen implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-		fabricDataGenerator.addProvider(ModBlockLootTableProvider::new);
 		fabricDataGenerator.addProvider(ModBlockTagProvider::new);
 		fabricDataGenerator.addProvider(ModModelProvider::new);
 		fabricDataGenerator.addProvider(ModRecipeProvider::new);

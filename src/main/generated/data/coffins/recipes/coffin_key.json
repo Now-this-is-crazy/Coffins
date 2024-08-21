@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "0": {
+      "item": "minecraft:flint"
+    },
+    "1": {
+      "item": "minecraft:bone"
+    },
+    "2": {
+      "item": "minecraft:iron_ingot"
+    },
+    "3": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "pattern": [
+    "  3",
+    "21 ",
+    "02 "
+  ],
+  "result": {
+    "item": "coffins:coffin_key"
+  }
+}

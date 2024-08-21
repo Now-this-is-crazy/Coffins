@@ -1,13 +1,16 @@
 {
   "item.coffins.tome_of_fragility": "Zauber der Zerbrechlichkeit",
+  "item.coffins.coffin_key": "Totengräber's Schlüssel",
   "block.coffins.coffin": "Sarg",
-  "block.coffins.coffin.disallowOpen": "Sarg is geschlossen!",
-  "block.coffins.coffin.disallowBreak": "Sargraub ist nicht erlaubt!",
+  "block.coffins.coffin.disallowOpen": "Sarg ist geschlossen!",
+  "block.coffins.coffin.disallowBreak": "Sarg ist geschlossen!",
+  "block.coffins.coffin.disallowKey": "Jemand besitzt diesen Sarg bereits!",
   "itemGroup.coffins.coffins": "Coffins",
   "name.coffins.coffin": "Sarg",
 
   "subtitles.coffins.coffin_open": "Sarg öffnet",
   "subtitles.coffins.coffin_close": "Sarg schließt",
+  "subtitles.coffins.coffin_locked": "Sarg abgeschlossen",
 
   "gamerule.keepRecoveryCompass": "Bergungskompass behalten",
   "gamerule.keepRecoveryCompass.description": "Kontrolliert ob der Spieler seinen Bergungskompass beim Tot behalten soll",

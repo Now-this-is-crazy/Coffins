@@ -1,8 +1,10 @@
 {
   "item.coffins.tome_of_fragility": "Tome of Fragility",
+  "item.coffins.coffin_key": "Gravedigger's Key",
   "block.coffins.coffin": "Coffin",
   "block.coffins.coffin.disallowOpen": "Coffin is locked!",
-  "block.coffins.coffin.disallowBreak": "Coffin Robbing is disabled!",
+  "block.coffins.coffin.disallowBreak": "Coffin is locked!",
+  "block.coffins.coffin.disallowKey": "Someone already owns this coffin!",
   "itemGroup.coffins.coffins": "Coffins",
   "name.coffins.coffin": "Coffin",
 

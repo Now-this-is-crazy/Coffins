@@ -1,0 +1,21 @@
+{
+  "item.coffins.tome_of_fragility": "Tome o' Fragility",
+  "item.coffins.coffin_key": "Davy Jones Lockpick",
+  "block.coffins.coffin": "Coffin",
+  "block.coffins.coffin.disallowOpen": "'this treasure's not yours!",
+  "block.coffins.coffin.disallowBreak": "'this treasure's not yours!",
+  "block.coffins.coffin.disallowKey": "Some scallywag already be ownin' this coffin!",
+  "itemGroup.coffins.coffins": "Coffins",
+  "name.coffins.coffin": "Coffin",
+
+  "subtitles.coffins.coffin_open": "Coffin be openin'",
+  "subtitles.coffins.coffin_close": "Coffin be closin'",
+  "subtitles.coffins.coffin_locked": "Coffin be locked",
+
+  "gamerule.keepRecoveryCompass": "Keep Recovery Compass",
+  "gamerule.keepRecoveryCompass.description": "Controls if ye keep yer recovery compass when ye meet Davy Jones",
+  "gamerule.showDeathCoordinates": "Show Death Coordinates",
+  "gamerule.showDeathCoordinates.description": "Controls whether t' show yer Death Coordinates when ye meet Davy Jones",
+  "gamerule.allowCoffinRobbing": "Allow Coffin Robbin'",
+  "gamerule.allowCoffinRobbing.description": "Controls if other pirates be allowed t' loot coffins (Only in Death)"
+}

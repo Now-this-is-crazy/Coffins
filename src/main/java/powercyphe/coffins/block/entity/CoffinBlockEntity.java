@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class CoffinBlockEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(54, ItemStack.EMPTY);
     private String owner = "";
+    private String ownerName = "";
 
     public CoffinBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.COFFIN, pos, state);
@@ -40,20 +41,28 @@ public class CoffinBlockEntity extends BlockEntity implements NamedScreenHandler
         return this.inventory;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(String owner, String ownerName) {
         this.owner = owner;
+        this.ownerName = ownerName;
     }
 
     public String getOwner() {
         return this.owner;
     }
 
+    public String getOwnerName() {
+        return this.ownerName;
+    }
 
     @Override
     public Text getDisplayName() {
         String translation = Text.translatable("name.coffins.coffin").getString();
-        if (!this.owner.isEmpty()) {
-            return Text.literal("§f" + this.owner + "'s " + translation);
+        if (!this.getOwnerName().isEmpty()) {
+            return Text.literal("§f" + this.getOwnerName() + "'s " + translation);
+        } else {
+            if (!this.getOwner().isEmpty()) {
+                return Text.literal("§f" + this.getOwner() + "'s" + translation);
+            }
         }
         return Text.literal("§f" + translation);
     }
@@ -103,6 +112,7 @@ public class CoffinBlockEntity extends BlockEntity implements NamedScreenHandler
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         nbt.putString("owner", this.owner);
+        nbt.putString("ownerName", this.ownerName);
         Inventories.writeNbt(nbt, inventory);
     }
 
@@ -111,6 +121,16 @@ public class CoffinBlockEntity extends BlockEntity implements NamedScreenHandler
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
         this.owner = nbt.getString("owner");
+        this.ownerName = nbt.getString("ownerName");
+    }
+
+    public void setLocked(boolean locked) {
+        if (!world.isClient) {
+            BlockState state = this.getCachedState();
+            if (state.getBlock() instanceof  CoffinBlock) {
+                world.setBlockState(pos, state.with(CoffinBlock.LOCKED, locked), Block.NOTIFY_ALL);
+            }
+        }
     }
 
     public void setOpen(boolean open) {

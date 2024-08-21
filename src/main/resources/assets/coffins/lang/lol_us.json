@@ -1,0 +1,21 @@
+{
+  "item.coffins.tome_of_fragility": "Toem ov Fragility",
+  "item.coffins.coffin_key": "Gravdiggr's Key",
+  "block.coffins.coffin": "Coffin",
+  "block.coffins.coffin.disallowOpen": "Coffin iz lockd!",
+  "block.coffins.coffin.disallowBreak": "Coffin iz lockd!",
+  "block.coffins.coffin.disallowKey": "Someone already owns this coffin!",
+  "itemGroup.coffins.coffins": "Coffinz",
+  "name.coffins.coffin": "Coffin",
+
+  "subtitles.coffins.coffin_open": "Coffin openz",
+  "subtitles.coffins.coffin_close": "Coffin closez",
+  "subtitles.coffins.coffin_locked": "Coffin lockd",
+
+  "gamerule.keepRecoveryCompass": "Keep Recovery Compazz",
+  "gamerule.keepRecoveryCompass.description": "Kontrolz if teh playr shud keep deir recovery compazz upon deth",
+  "gamerule.showDeathCoordinates": "Show Deth Coordnates",
+  "gamerule.showDeathCoordinates.description": "Kontrolz whethr or not 2 show Deth Coordnates 2 teh playr upon dying",
+  "gamerule.allowCoffinRobbing": "Allow Coffin Robbing",
+  "gamerule.allowCoffinRobbing.description": "Kontrolz if othr playrz r allowed 2 look into othr playr's coffinzz (Deth only)"
+}
