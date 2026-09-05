@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  },
+  "package": "powercyphe.coffins.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "accessor.BaseContainerBlockEntityAccessor",
+    "coffin.ServerExplosionMixin",
+    "coffin.ServerPlayerMixin"
+  ],
+  "client": [
+    "recovery_compass.client.GuiMixin",
+    "recovery_compass.client.LocalPlayerMixin",
+    "recovery_compass.client.QuadParticleGroupMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

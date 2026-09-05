@@ -1,20 +1,32 @@
 {
-  "coffin_open": {
-    "subtitle": "subtitles.coffins.coffin_open",
+  "block.coffin.open": {
+    "subtitle": "subtitles.block.coffin.open",
     "sounds": [
-      "coffins:coffin_open"
+      "coffins:block/coffin_open"
     ]
   },
-  "coffin_close": {
-    "subtitle": "subtitles.coffins.coffin_close",
+  "block.coffin.close": {
+    "subtitle": "subtitles.block.coffin.close",
     "sounds": [
-      "coffins:coffin_close"
+      "coffins:block/coffin_close"
     ]
   },
-  "coffin_locked": {
-    "subtitle": "subtitles.coffins.coffin_locked",
+  "block.coffin.locked": {
+    "subtitle": "subtitles.block.coffin.locked",
     "sounds": [
-      "coffins:coffin_locked"
+      "coffins:block/coffin_locked"
+    ]
+  },
+  "generic.coffins.recovery_ping": {
+    "subtitle": "subtitles.generic.coffins.recovery_ping",
+    "sounds": [
+      "coffins:item/recovery_ping"
+    ]
+  },
+  "generic.coffins.recovery_ping_fail": {
+    "subtitle": "subtitles.generic.coffins.recovery_ping_fail",
+    "sounds": [
+      "coffins:item/recovery_ping_fail"
     ]
   }
 }

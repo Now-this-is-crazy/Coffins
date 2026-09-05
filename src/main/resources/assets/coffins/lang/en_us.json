@@ -1,23 +1,31 @@
 {
-  "item.coffins.tome_of_fragility": "Tome of Fragility",
-  "item.coffins.coffin_key": "Gravedigger's Key",
   "block.coffins.coffin": "Coffin",
-  "block.coffins.coffin.disallowOpen": "Coffin is locked!",
-  "block.coffins.coffin.disallowBreak": "Coffin is locked!",
-  "block.coffins.coffin.disallowKey": "Someone already owns this coffin!",
-  "itemGroup.coffins.coffins": "Coffins",
-  "name.coffins.coffin": "Coffin",
 
-  "subtitles.coffins.coffin_open": "Coffin opens",
-  "subtitles.coffins.coffin_close": "Coffin closes",
-  "subtitles.coffins.coffin_locked": "Coffin locked",
+  "gamerule.coffins.coffin_robbing": "Allow Coffin Robbing",
+  "gamerule.coffins.coffin_robbing.description": "Controls whether players can access coffins from others.",
+  "gamerule.coffins.coffin_stored_experience": "Coffin Stored Experience",
+  "gamerule.coffins.coffin_stored_experience.description": "The percentage of how experience is stored in a coffin upon death.",
+  "gamerule.coffins.tweak_recovery_compass": "Tweak Recovery Compass",
+  "gamerule.coffins.tweak_recovery_compass.description": "Tweaks the recovery compass, allowing players to ping their own unlooted coffins.",
+  "gamerule.coffins.keep_post_respawn_items": "Keep Post-Respawn Items",
+  "gamerule.coffins.keep_post_respawn_items.description": "Controls whether players keep certain items such as the recovery compass on death.",
 
-  "gamerule.keepRecoveryCompass": "Keep Recovery Compass",
-  "gamerule.keepRecoveryCompass.description": "Controls if they player should keep their recovery compass upon death",
-  "gamerule.showDeathCoordinates": "Show Death Coordinates",
-  "gamerule.showDeathCoordinates.description": "Controls whether or not to show Death Coordinates to the player upon dying",
-  "gamerule.allowCoffinRobbing": "Allow Coffin Robbing",
-  "gamerule.allowCoffinRobbing.description": "Controls if other players are allowed to look into other player's coffins (Death only)",
-  "gamerule.deathRequiresCoffin": "Death Requires Coffin",
-  "gamerule.deathRequiresCoffin.description": "Controls if a coffin should spawn only if the player has one on them (On Death)"
+  "button.coffins.info_button": "Show Info",
+  "button.coffins.info_button.items": "Items: %1$s",
+  "button.coffins.info_button.experience": "Experience: %1$s",
+
+  "button.coffins.experience_button": "Collect Experience",
+  "button.coffins.loot_button": "Loot Coffin",
+
+  "coffins.recovery_compass.death_message": "You died at %1$s (%2$s blocks away)",
+  "coffins.recovery_compass.death_message_reduced": "You died %1$s blocks away",
+  "coffins.recovery_compass.death_message_dimension": "You died in %1$s",
+  "coffins.recovery_compass.death_location": "[ %1$s, %2$s, %3$s ]",
+
+  "subtitles.block.coffin.open": "Coffin opened",
+  "subtitles.block.coffin.close": "Coffin closed",
+  "subtitles.block.coffin.locked": "Coffin locked",
+
+  "subtitles.generic.coffins.recovery_ping": "Recovery Ping succeeds",
+  "subtitles.generic.coffins.recovery_ping_fail": "Recovery Ping fails"
 }

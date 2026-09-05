@@ -1,45 +1,46 @@
 {
-	"schemaVersion": 1,
-	"id": "coffins",
-	"version": "${version}",
-	"name": "Coffins",
-	"description": "Adds coffins to the game, that store your items upon death, which can also be used as storage unit.",
-	"authors": [
-		"Powercyphe",
-		"RedVortex",
-		"oPixeel"
-	],
-	"custom": {
-		"modmenu": {
-			"links": {
-				"modmenu.discord": "https://discord.gg/Dmp2dbyNrs"
-			}
-		}
-	},
-	"contact": {
-		"homepage": "https://modrinth.com/project/coffins/"
-	},
-	"license": "ARR",
-	"icon": "assets/coffins/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-          "powercyphe.coffins.Mod"
-		],
-		"client": [
-			"powercyphe.coffins.ModClient"
-		],
-		"fabric-datagen": [
-			"powercyphe.coffins.ModDataGen"
-		]
-	},
-	"mixins": [
-		"mod.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.14.24",
-		"minecraft": "1.19.2",
-		"java": ">=17",
-		"fabric-api": "*"
-	}
+  "schemaVersion": 1,
+  "id": "coffins",
+  "version": "${version}",
+  "name": "Coffins",
+  "description": "Adds coffins to store your items upon death, which also function as a storage unit.",
+  "authors": [
+    "Powercyphe",
+    "starlikestylus",
+    "RedVortex"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/coffins",
+    "sources": "https://github.com/Now-this-is-crazy/Coffins"
+  },
+  "license": "MIT",
+  "icon": "assets/coffins/icon.png",
+  "environment": "*",
+  "accessWidener": "coffins.accesswidener",
+  "entrypoints": {
+    "main": [
+      "powercyphe.coffins.common.Coffins"
+    ],
+    "client": [
+      "powercyphe.coffins.client.CoffinsClient"
+    ],
+    "fabric-datagen": [
+      "powercyphe.coffins.common.datagen.CDataGen"
+    ]
+  },
+  "mixins": [
+    "coffins.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": ">=${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/Dmp2dbyNrs"
+      }
+    }
+  }
 }

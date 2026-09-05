@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:chest",
+    "D": "minecraft:cobbled_deepslate",
+    "I": "minecraft:iron_ingot"
+  },
+  "pattern": [
+    "III",
+    "DCD",
+    "DDD"
+  ],
+  "result": {
+    "id": "coffins:coffin"
+  }
+}

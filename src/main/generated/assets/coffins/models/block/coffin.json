@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "coffins:block/coffin_bottom",
+    "side": "coffins:block/coffin_side",
+    "top": "coffins:block/coffin_top"
+  }
+}

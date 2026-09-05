@@ -1,0 +1,15 @@
+{
+  "values": [
+    "#minecraft:base_stone_overworld",
+    "#minecraft:substrate_overworld",
+    "#minecraft:snow",
+    "minecraft:sand",
+    "minecraft:red_sand",
+    "minecraft:gravel",
+    "#minecraft:base_stone_nether",
+    "#minecraft:nylium",
+    "#minecraft:wart_blocks",
+    "minecraft:soul_sand",
+    "minecraft:soul_soil"
+  ]
+}
