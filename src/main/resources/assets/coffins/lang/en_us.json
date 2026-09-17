@@ -1,14 +1,19 @@
 {
   "block.coffins.coffin": "Coffin",
+  "block.coffins.coffin.isProtected": "%1$s is protected!",
+  "block.coffins.coffin.isProtectedTimed": "%1$s is protected for %2$s",
 
-  "gamerule.coffins.coffin_robbing": "Allow Coffin Robbing",
-  "gamerule.coffins.coffin_robbing.description": "Controls whether players can access coffins from others.",
+  "gamerule.coffins.coffin_protection_time": "Coffin Protection Time",
+  "gamerule.coffins.coffin_protection_time.description": "Controls how much time (in seconds) needs to pass before other players can access another's coffin. When set to -1, the protection time will never expire.",
   "gamerule.coffins.coffin_stored_experience": "Coffin Stored Experience",
   "gamerule.coffins.coffin_stored_experience.description": "The percentage of how experience is stored in a coffin upon death.",
   "gamerule.coffins.tweak_recovery_compass": "Tweak Recovery Compass",
   "gamerule.coffins.tweak_recovery_compass.description": "Tweaks the recovery compass, allowing players to ping their own unlooted coffins.",
   "gamerule.coffins.keep_post_respawn_items": "Keep Post-Respawn Items",
   "gamerule.coffins.keep_post_respawn_items.description": "Controls whether players keep certain items such as the recovery compass on death.",
+
+  "menu.coffins.player_coffins": "%1$s's Coffins",
+  "button.coffins.teleport_to": "Teleport to",
 
   "button.coffins.info_button": "Show Info",
   "button.coffins.info_button.items": "Items: %1$s",

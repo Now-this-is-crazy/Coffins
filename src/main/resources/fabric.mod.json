@@ -19,13 +19,13 @@
   "accessWidener": "coffins.accesswidener",
   "entrypoints": {
     "main": [
-      "powercyphe.coffins.common.Coffins"
+      "dev.powercyphe.coffins.common.Coffins"
     ],
     "client": [
-      "powercyphe.coffins.client.CoffinsClient"
+      "dev.powercyphe.coffins.client.CoffinsClient"
     ],
     "fabric-datagen": [
-      "powercyphe.coffins.common.datagen.CDataGen"
+      "dev.powercyphe.coffins.common.datagen.CDataGen"
     ]
   },
   "mixins": [
