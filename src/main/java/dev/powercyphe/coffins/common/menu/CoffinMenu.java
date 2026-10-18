@@ -168,41 +168,14 @@ public class CoffinMenu extends AbstractContainerMenu {
 
     public void collectExperience(ServerPlayer player) {
         if (this.container instanceof CoffinBlockEntity coffin) {
-            player.giveExperiencePoints(coffin.getExperience());
-
-            coffin.setExperience(0);
+            coffin.collectExperience(player);
             this.experience.set(0);
         }
     }
 
-    public void collectLoot(ServerPlayer player) {
+    public void collectItems(ServerPlayer player) {
         if (this.container instanceof CoffinBlockEntity coffin) {
-            Inventory inv = player.getInventory();
-            List<ItemStack> leftovers = new ArrayList<>();
-
-            coffin.forEachItem(pair -> {
-                ItemStack stack = pair.getFirst();
-                var provider = pair.getSecond();
-
-                provider.ifPresentOrElse(
-                        p -> {
-                            if (p.placeBackInSlot(player, player.level(), stack.copy())) {
-                                stack.copyAndClear();
-                            } else {
-                                leftovers.add(stack);
-                            }
-                        }, () -> leftovers.add(stack)
-                );
-            });
-
-            for (ItemStack stack : leftovers) {
-                int slot = inv.getSlotWithRemainingSpace(stack);
-                if (slot != -1) {
-                    inv.add(slot, stack.copyAndClear());
-                } else if (inv.getFreeSlot() != -1) {
-                    inv.add(inv.getFreeSlot(), stack.copyAndClear());
-                }
-            }
+            coffin.collectItems(player);
         }
     }
 

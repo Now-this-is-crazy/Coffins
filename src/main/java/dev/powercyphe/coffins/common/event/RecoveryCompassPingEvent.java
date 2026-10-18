@@ -21,18 +21,22 @@ public class RecoveryCompassPingEvent implements UseItemCallback {
         if (CUtil.isHoldingRecoveryCompass(player, hand) && CUtil.shouldTweakRecoveryCompass(level)
                 && !player.getCooldowns().isOnCooldown(stack)) {
             var coffins = CUtil.getCoffins(player);
+            boolean ping = false;
 
             for (GlobalPos pos : coffins) {
-                Vec3 particlePos = pos.pos().getCenter();
-                level.addParticle(
-                        CParticleTypes.RECOVERY_PING,
-                        particlePos.x(), particlePos.y(), particlePos.z(),
-                        0, 0, 0
-                );
+                Vec3 particlePos = CUtil.centerPos(pos.pos());
+                if (level.dimension() == pos.dimension()) {
+                    ping = true;
+                    level.addParticle(
+                            CParticleTypes.RECOVERY_PING,
+                            particlePos.x(), particlePos.y(), particlePos.z(),
+                            0, 0, 0
+                    );
+                }
             }
 
             player.getCooldowns().addCooldown(stack, 30);
-            player.playSound(coffins.isEmpty() ? CSounds.RECOVERY_PING_FAIL : CSounds.RECOVERY_PING,
+            player.playSound(ping ? CSounds.RECOVERY_PING : CSounds.RECOVERY_PING_FAIL,
                     0.5F, 0.95F + Mth.randomBetween(player.getRandom(), 0F, 0.1F));
             return InteractionResult.SUCCESS;
         }

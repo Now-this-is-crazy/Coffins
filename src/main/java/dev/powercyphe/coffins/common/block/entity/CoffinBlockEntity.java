@@ -1,10 +1,5 @@
 package dev.powercyphe.coffins.common.block.entity;
 
-import com.ibm.icu.impl.RelativeDateFormat;
-import com.ibm.icu.text.DateFormat;
-import com.ibm.icu.text.RelativeDateTimeFormatter;
-import com.ibm.icu.util.Calendar;
-import com.ibm.icu.util.ULocale;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -27,10 +22,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Ease;
 import net.minecraft.util.Mth;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.ContainerUser;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -45,7 +40,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 import dev.powercyphe.coffins.common.block.CoffinBlock;
 import dev.powercyphe.coffins.common.init.CBlockEntityTypes;
-import dev.powercyphe.coffins.common.init.CGamerules;
 import dev.powercyphe.coffins.common.init.CSounds;
 import dev.powercyphe.coffins.common.menu.CoffinMenu;
 import dev.powercyphe.coffins.common.util.CSyncedGamerules;
@@ -120,7 +114,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
         if (this.getLevel() instanceof ServerLevel serverLevel) {
-            ExperienceOrb.award(serverLevel, pos.getCenter(), this.getExperience());
+            ExperienceOrb.award(serverLevel, CUtil.centerPos(pos), this.getExperience());
 
             if (this.getOwner() != null) {
                 ServerPlayer player = (ServerPlayer) serverLevel.getPlayerByUUID(this.getOwner());
@@ -157,11 +151,11 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
 
     public boolean shouldGlow(Entity viewer) {
         return this.isGrave() && this.isOwner(viewer)
-                && Math.sqrt(viewer.distanceToSqr(this.getBlockPos().getCenter())) < CSyncedGamerules.COFFIN_GLOW_DISTANE;
+                && Math.sqrt(viewer.distanceToSqr(CUtil.centerPos(this.getBlockPos()))) < CSyncedGamerules.COFFIN_GLOW_DISTANE;
     }
 
     public int getOutlineColor(Entity viewer, float partialTicks) {
-        float dis = (float) viewer.getEyePosition(partialTicks).distanceTo(this.getBlockPos().getCenter());
+        float dis = (float) viewer.getEyePosition(partialTicks).distanceTo(CUtil.centerPos(this.getBlockPos()));
         float fullDis = (float) CSyncedGamerules.COFFIN_GLOW_DISTANE / 4F;
 
         float alpha = 1F;
@@ -351,12 +345,7 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
         this.playSound(CSounds.COFFIN_CLOSE);
         this.setOpen(false);
 
-        if (this.shouldDisappear() && this.getLevel() instanceof ServerLevel serverLevel) {
-            Vec3 pos = this.getBlockPos().getCenter();
-
-            serverLevel.destroyBlock(this.getBlockPos(), false, user.getLivingEntity());
-            serverLevel.sendParticles(ParticleTypes.POOF, pos.x(), pos.y(), pos.z(), 14, 0, 0.2, 0, 0.07);
-        }
+        this.tryRemove(user.getLivingEntity());
     }
 
     @Override
@@ -385,6 +374,49 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
 
     public boolean isProtected() {
         return this.getRemainingProtection() > 0;
+    }
+
+    public void tryRemove(@Nullable LivingEntity user) {
+        if (this.shouldDisappear() && this.getLevel() instanceof ServerLevel serverLevel) {
+            Vec3 pos = CUtil.centerPos(this.getBlockPos());
+
+            serverLevel.destroyBlock(this.getBlockPos(), false, user);
+            serverLevel.sendParticles(ParticleTypes.POOF, pos.x(), pos.y(), pos.z(), 14, 0, 0.2, 0, 0.07);
+        }
+    }
+
+    public void collectItems(ServerPlayer player) {
+        Inventory inv = player.getInventory();
+        List<ItemStack> leftovers = new ArrayList<>();
+
+        this.forEachItem(pair -> {
+            ItemStack stack = pair.getFirst();
+            var provider = pair.getSecond();
+
+            provider.ifPresentOrElse(
+                    p -> {
+                        if (p.placeBackInSlot(player, player.level(), stack.copy())) {
+                            stack.copyAndClear();
+                        } else {
+                            leftovers.add(stack);
+                        }
+                    }, () -> leftovers.add(stack)
+            );
+        });
+
+        for (ItemStack stack : leftovers) {
+            int slot = inv.getSlotWithRemainingSpace(stack);
+            if (slot != -1) {
+                inv.add(slot, stack.copyAndClear());
+            } else if (inv.getFreeSlot() != -1) {
+                inv.add(inv.getFreeSlot(), stack.copyAndClear());
+            }
+        }
+    }
+
+    public void collectExperience(ServerPlayer player) {
+        player.giveExperiencePoints(this.getExperience());
+        this.setExperience(0);
     }
 
     public void playSound(SoundEvent soundEvent) {
@@ -417,11 +449,14 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
             Date date = new Date(this.time);
 
             int day = Integer.parseInt(new SimpleDateFormat("d").format(date));
-            String dSuffix = switch (day % 10) {
-                case 1 -> "'st'";
-                case 2 -> "'nd'";
-                case 3 -> "'rd'";
-                default -> "'th'";
+            String dSuffix = switch (day) {
+                case 11, 12, 13 -> "'th'";
+                default -> switch (day % 10) {
+                    case 1 -> "'st'";
+                    case 2 -> "'nd'";
+                    case 3 -> "'rd'";
+                    default -> "'th'";
+                };
             };
 
             return Component.literal(new SimpleDateFormat("MMM d" + dSuffix + " yyy, HH:mm").format(date));

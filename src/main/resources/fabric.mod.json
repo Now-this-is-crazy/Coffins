@@ -16,7 +16,7 @@
   "license": "MIT",
   "icon": "assets/coffins/icon.png",
   "environment": "*",
-  "accessWidener": "coffins.accesswidener",
+  "accessWidener": "coffins.classTweaker",
   "entrypoints": {
     "main": [
       "dev.powercyphe.coffins.common.Coffins"

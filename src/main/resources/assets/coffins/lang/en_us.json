@@ -15,11 +15,12 @@
   "menu.coffins.player_coffins": "%1$s's Coffins",
   "button.coffins.teleport_to": "Teleport to",
 
-  "button.coffins.info_button": "Show Info",
+  "button.coffins.info_button": "Coffin Info",
   "button.coffins.info_button.items": "Items: %1$s",
   "button.coffins.info_button.experience": "Experience: %1$s",
 
   "button.coffins.experience_button": "Collect Experience",
+  "button.coffins.items_button": "Collect Items",
   "button.coffins.loot_button": "Loot Coffin",
 
   "coffins.recovery_compass.death_message": "You died at %1$s (%2$s blocks away)",

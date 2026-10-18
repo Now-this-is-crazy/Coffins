@@ -1,6 +1,7 @@
 package dev.powercyphe.coffins.common.util;
 
 import com.google.common.collect.ImmutableList;
+import dev.powercyphe.coffins.common.init.CItems;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.Component;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 import dev.powercyphe.coffins.common.api.CoffinsEvents;
 import dev.powercyphe.coffins.common.block.entity.CoffinBlockEntity;
@@ -32,10 +34,24 @@ import dev.powercyphe.coffins.common.menu.slot.InventorySlotProvider;
 import dev.powercyphe.coffins.common.menu.slot.SavedSlotProvider;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static dev.powercyphe.coffins.common.block.entity.CoffinBlockEntity.*;
 
 public interface CUtil {
+
+    static boolean tryConsumeCoffin(ServerPlayer player, ServerLevel level) {
+        return (!level.getGameRules().get(CGamerules.COFFIN_REQUIRES_ITEM) || player.getInventory().contains(stack -> {
+            if (stack.is(CItems.COFFIN)) {
+                stack.shrink(1);
+                return true;
+            }
+            return false;
+        }));
+    }
 
     static @Nullable BlockPos findCoffinPos(Player player) {
         Level level = player.level();
@@ -92,7 +108,7 @@ public interface CUtil {
         if (!level.isInsideBuildHeight(clamped)) {
             clamped = new BlockPos(
                     clamped.getX(),
-                    Math.clamp(clamped.getY(), level.getMinY(), level.getMaxY()),
+                    Math.clamp(clamped.getY(), level.getMinY() + 1, level.getMaxY()),
                     clamped.getZ()
             );
         }
@@ -208,7 +224,8 @@ public interface CUtil {
             if (level != null) {
                 level.getChunkSource().addTicketAndLoadWithRadius(TicketType.FORCED, ChunkPos.containing(pos.pos()), 1)
                         .thenAccept((_) -> {
-                            if (!(level.getBlockEntity(pos.pos()) instanceof CoffinBlockEntity coffin && coffin.isOwner(player) && !coffin.isRemoved())) {
+                            if (!(level.getBlockEntity(pos.pos()) instanceof CoffinBlockEntity coffin
+                                    && coffin.isOwner(player) && !coffin.isRemoved())) {
                                 removeFromCoffins(player, pos);
                             }
                         });
@@ -218,61 +235,80 @@ public interface CUtil {
         }
     }
 
-    static void storeItems(CoffinBlockEntity coffin, ServerPlayer player, DamageSource source) {
-        ServerLevel level = player.level();
-        Inventory inv = player.getInventory();
+    @Nullable
+    static Consumer<CoffinBlockEntity> store(ServerPlayer player, ServerLevel level, DamageSource source, BlockPos coffinPos) {
+        var itemConsumer = Optional.ofNullable(storeItems(player, level, source, coffinPos));
+        var experienceConsumer = Optional.ofNullable(storeExperience(player, level));
 
-        ArrayList<ItemStack> preItems = new ArrayList<>();
-        Map<Integer, SavedSlotProvider> preSavedSlots = new HashMap<>();
+        return itemConsumer.isEmpty() && experienceConsumer.isEmpty() ? null : coffin -> {
+            itemConsumer.ifPresent(con -> con.accept(coffin));
+            experienceConsumer.ifPresent(con -> con.accept(coffin));
+        };
+    }
+
+    static Consumer<CoffinBlockEntity> storeItems(ServerPlayer player, ServerLevel level, DamageSource source, BlockPos coffinPos) {
+        Inventory inv = player.getInventory();
+        List<BiSupplier<ItemStack, Optional<SavedSlotProvider>>> slots = new ArrayList<>();
 
         for (int index = 0; index < inv.getContainerSize(); index++) {
             ItemStack stack = inv.getItem(index);
 
-            if (!stack.isEmpty() && !storePostRespawn(player, stack)) {
-                preSavedSlots.put(preItems.size(), new InventorySlotProvider(index));
-                preItems.add(stack.copyAndClear());
+            if (!stack.isEmpty() && !storePostRespawn(player, level, stack)) {
+                slots.add(BiSupplier.create(stack, Optional.of(new InventorySlotProvider(index))));
             }
         }
-
-        CoffinsEvents.STORE_ITEMS.invoker().storeItems(player, level, source, coffin.getBlockPos(),
+        CoffinsEvents.STORE_ITEMS.invoker().storeItems(player, level, source, coffinPos,
                 new CoffinsEvents.StoreItemsEvent.ItemCollector() {
                     @Override
                     public void collect(ItemStack stack) {
-                        if (!stack.isEmpty() && !storePostRespawn(player, stack)) {
-                            preItems.add(stack.copyAndClear());
+                        if (!stack.isEmpty() && !storePostRespawn(player, level, stack)) {
+                            slots.add(BiSupplier.create(stack, Optional.empty()));
                         }
                     }
 
                     @Override
                     public void collect(ItemStack stack, SavedSlotProvider savedSlot) {
-                        if (!stack.isEmpty() && !storePostRespawn(player, stack)) {
-                            preSavedSlots.put(preSavedSlots.size(), savedSlot);
-                            preItems.add(stack.copyAndClear());
+                        if (!stack.isEmpty() && !storePostRespawn(player, level, stack)) {
+                            slots.add(BiSupplier.create(stack, Optional.ofNullable(savedSlot)));
                         }
                     }
                 }
         );
 
-        while (preItems.size() % 7 != 0 || preItems.size() < DEFAULT_GRAVE_SIZE) {
-            preItems.add(ItemStack.EMPTY);
-        }
+        return slots.stream().allMatch((bi) -> bi.getFirst().isEmpty()) ? null : coffin -> {
+            List<ItemStack> items = new ArrayList<>();
+            Map<Integer, SavedSlotProvider> providers = new HashMap<>();
 
-        coffin.setItems(new NonNullList<>(preItems, ItemStack.EMPTY));
-        preSavedSlots.forEach(coffin::addSavedSlot);
+            for (var sup : slots) {
+                ItemStack stack = sup.getFirst();
+
+                if (!stack.isEmpty()) {
+                    sup.getSecond().ifPresent(provider -> providers.put(items.size(), provider));
+                    items.add(stack.copyAndClear());
+                }
+            }
+
+            while (items.size() % 7 != 0 || items.size() < DEFAULT_GRAVE_SIZE) {
+                items.add(ItemStack.EMPTY);
+            }
+
+            coffin.setItems(new NonNullList<>(items, ItemStack.EMPTY));
+            providers.forEach(coffin::addSavedSlot);
+        };
     }
 
-    static void storeExperience(CoffinBlockEntity coffin, ServerPlayer player) {
-        ServerLevel level = player.level();
+    static Consumer<CoffinBlockEntity> storeExperience(ServerPlayer player, ServerLevel level) {
+        int experience = CUtil.getExperiencePoints(player, level.getGameRules().get(CGamerules.COFFIN_STORED_EXPERIENCE) / 100F);
+        return experience <= 0 ? null : coffin -> {
+            coffin.setExperience(experience);
 
-        coffin.setExperience(CUtil.getExperiencePoints(player,
-                level.getGameRules().get(CGamerules.COFFIN_STORED_EXPERIENCE) / 100F));
-
-        player.setExperienceLevels(0);
-        player.setExperiencePoints(0);
+            player.setExperienceLevels(0);
+            player.setExperiencePoints(0);
+        };
     }
 
-    static boolean storePostRespawn(ServerPlayer player, ItemStack stack) {
-        if (player.level().getGameRules().get(CGamerules.KEEP_POST_RESPAWN_ITEMS)) {
+    static boolean storePostRespawn(ServerPlayer player, ServerLevel level, ItemStack stack) {
+        if (level.getGameRules().get(CGamerules.KEEP_POST_RESPAWN_ITEMS)) {
             if (stack.is(CTags.Items.POST_RESPAWN_ITEMS)) {
                 List<ItemStack> postRespawn = new ArrayList<>(player.getAttachedOrCreate(CAttachmentTypes.POST_RESPAWN_ITEMS));
                 postRespawn.add(stack.copyAndClear());
@@ -285,13 +321,8 @@ public interface CUtil {
         return false;
     }
 
-    static List<ClientTooltipComponent> createTooltip(Component... components) {
-        var tooltip = new ArrayList<ClientTooltipComponent>();
-        for (Component line : components) {
-            tooltip.add(ClientTooltipComponent.create(line.getVisualOrderText()));
-        }
-
-        return tooltip;
+    static Vec3 centerPos(BlockPos blockPos) {
+        return new Vec3(blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
     }
 
     static String formatProtectionTimer(int ticks, float tickrate) {

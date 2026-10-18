@@ -11,7 +11,7 @@ base {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/coffins.accesswidener")
+    accessWidenerPath = file("src/main/resources/coffins.classTweaker")
 }
 
 fabricApi {
@@ -35,10 +35,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
     // Built-in Compatibility
     implementation "eu.pb4:trinkets:${project.trinkets_version}"
+    implementation "maven.modrinth:combat-amenities:${project.combat_amenities_version}"
 }
 
 processResources {

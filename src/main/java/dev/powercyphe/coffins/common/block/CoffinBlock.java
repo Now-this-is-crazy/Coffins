@@ -63,10 +63,21 @@ public class CoffinBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level.getBlockEntity(pos) instanceof CoffinBlockEntity coffin) {
-            player.openMenu(coffin);
-            if (player instanceof ServerPlayer serverPlayer && coffin.getDeathData() != null) {
-                CoffinDeathDataPayload.send(serverPlayer, coffin.getDeathData());
+            if (player.isShiftKeyDown() && coffin.canOpen(player) && coffin.isOwner(player)) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    coffin.collectItems(serverPlayer);
+                    coffin.collectExperience(serverPlayer);
+                }
+
+                coffin.tryRemove(player);
+                return InteractionResult.SUCCESS;
             }
+
+            player.openMenu(coffin).ifPresent(_ -> {
+                if (player instanceof ServerPlayer serverPlayer && coffin.getDeathData() != null) {
+                    CoffinDeathDataPayload.send(serverPlayer, coffin.getDeathData());
+                }
+            });
             return InteractionResult.SUCCESS;
         }
         return super.useWithoutItem(state, level, pos, player, hitResult);

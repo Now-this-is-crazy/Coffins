@@ -1,8 +1,10 @@
 package dev.powercyphe.coffins.client.payload;
 
+import dev.powercyphe.coffins.common.util.CUtil;
 import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -35,7 +37,8 @@ public record TeleportToCoffinPayload(GlobalPos coffinPos) implements CustomPack
             ServerLevel level = server.getLevel(coffinPos.dimension());
 
             if (level != null) {
-                Vec3 tpPos = coffinPos.pos().getCenter();
+                Vec3 tpPos = CUtil.centerPos(coffinPos.pos());
+
                 player.teleportTo(level, tpPos.x(), tpPos.y(), tpPos.z(),
                         Relative.ROTATION, 0, 0, false);
                 level.playSound(null, coffinPos.pos(), SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 0.5F, 1F);
