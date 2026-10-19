@@ -7,6 +7,8 @@
   "package": "dev.powercyphe.coffins.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "ThrownTridentMixin",
+    "accessor.AbstractArrowAccessor",
     "accessor.BaseContainerBlockEntityAccessor",
     "coffin.ServerExplosionMixin",
     "coffin.ServerPlayerMixin"

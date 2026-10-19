@@ -2,6 +2,7 @@ package dev.powercyphe.coffins.common.util;
 
 import com.google.common.collect.ImmutableList;
 import dev.powercyphe.coffins.common.init.CItems;
+import dev.powercyphe.coffins.mixin.accessor.AbstractArrowAccessor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.core.*;
 import net.minecraft.network.chat.Component;
@@ -13,8 +14,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemStackWithSlot;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ChunkPos;
@@ -257,6 +261,7 @@ public interface CUtil {
                 slots.add(BiSupplier.create(stack, Optional.of(new InventorySlotProvider(index))));
             }
         }
+
         CoffinsEvents.STORE_ITEMS.invoker().storeItems(player, level, source, coffinPos,
                 new CoffinsEvents.StoreItemsEvent.ItemCollector() {
                     @Override
@@ -274,6 +279,10 @@ public interface CUtil {
                     }
                 }
         );
+
+        for (ItemStack stack : collectTridents(player, level)) {
+            slots.add(BiSupplier.create(stack, Optional.empty()));
+        }
 
         return slots.stream().allMatch((bi) -> bi.getFirst().isEmpty()) ? null : coffin -> {
             List<ItemStack> items = new ArrayList<>();
@@ -319,6 +328,18 @@ public interface CUtil {
 
         }
         return false;
+    }
+
+    static List<ItemStack> collectTridents(ServerPlayer player, ServerLevel level) {
+        List<ItemStack> stacks = new ArrayList<>();
+
+        level.getEntities(EntityType.TRIDENT, trident -> player == trident.getOwner()
+                        && trident.pickup == AbstractArrow.Pickup.ALLOWED)
+                .forEach(trident -> {
+                        stacks.add(((AbstractArrowAccessor) trident).coffins$getPickupItem().copy());
+                        trident.discard();
+                });
+        return stacks;
     }
 
     static Vec3 centerPos(BlockPos blockPos) {
