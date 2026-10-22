@@ -31,6 +31,7 @@ public class Coffins implements ModInitializer {
         CSavedSlotProviders.init();
         CGamerules.init();
         CSounds.init();
+        CParticleTypes.init();
 
         Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, Coffins.id("non_grave_coffin"), NonGraveCoffinCondition.CODEC);
 

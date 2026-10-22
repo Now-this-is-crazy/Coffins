@@ -163,7 +163,7 @@ public class CoffinMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return true;
+        return this.container.stillValid(player);
     }
 
     public void collectExperience(ServerPlayer player) {

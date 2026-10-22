@@ -349,6 +349,11 @@ public class CoffinBlockEntity extends RandomizableContainerBlockEntity {
     }
 
     @Override
+    public boolean stillValid(Player player) {
+        return super.stillValid(player);
+    }
+
+    @Override
     public boolean canOpen(Player player) {
         return super.canOpen(player) && (this.isOwner(player) || !this.isGrave() || !this.isProtected());
     }
