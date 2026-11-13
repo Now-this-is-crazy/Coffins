@@ -55,7 +55,7 @@ public class PlayerCoffinsScreen extends Screen {
             coffin.addChild(new CoffinButton(Identifier.withDefaultNamespace("textures/item/ender_pearl.png"),
                     Component.translatable("button.coffins.teleport_to"), _ -> {
                 TeleportToCoffinPayload.send(pos);
-                this.minecraft.setScreen(null);
+                this.minecraft.gui.setScreen(null);
             }));
             this.buttons.addChild(coffin);
         }

@@ -4,8 +4,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Final;
@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import dev.powercyphe.coffins.common.Coffins;
 import dev.powercyphe.coffins.common.util.CUtil;
 
-@Mixin(Gui.class)
-public class GuiMixin {
+@Mixin(Hud.class)
+public class HudMixin {
 
     @Shadow
     @Final

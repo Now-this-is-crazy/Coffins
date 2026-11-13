@@ -15,9 +15,9 @@
     "interaction.ServerLevelMixin"
   ],
   "client": [
-    "interaction.client.LevelRendererMixin",
+    "interaction.client.LevelExtractorMixin",
     "interaction.client.MultiPlayerGameModeMixin",
-    "recovery_compass.client.GuiMixin",
+    "recovery_compass.client.HudMixin",
     "recovery_compass.client.LocalPlayerMixin",
     "recovery_compass.client.QuadParticleGroupMixin"
   ],

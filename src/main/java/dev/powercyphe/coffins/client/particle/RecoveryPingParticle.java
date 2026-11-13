@@ -22,7 +22,7 @@ public class RecoveryPingParticle extends SingleQuadParticle {
 
     public RecoveryPingParticle(ClientLevel level, double x, double y, double z, SpriteSet sprite) {
         super(level, x, y, z, sprite.first());
-        Vec3 camPos = Minecraft.getInstance().gameRenderer.getMainCamera().position();
+        Vec3 camPos = Minecraft.getInstance().gameRenderer.mainCamera().position();
         Vec3 particlePos = new Vec3(x, y, z);
 
         if (!camPos.closerThan(particlePos, MAX_DISTANCE)) {

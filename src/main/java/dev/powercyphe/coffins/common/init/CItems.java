@@ -4,16 +4,14 @@ import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
-import dev.powercyphe.coffins.common.Coffins;
 
 import java.util.function.Function;
 
 public interface CItems {
 
-    Item COFFIN = register("coffin", properties -> new BlockItem(CBlocks.COFFIN, properties),
+    Item COFFIN = register(CBlockItemIds.COFFIN.item(), properties -> new BlockItem(CBlocks.COFFIN, properties),
             new Item.Properties().useBlockDescriptionPrefix());
 
     static void init() {
@@ -26,8 +24,7 @@ public interface CItems {
                 });
     }
 
-    static Item register(String name, Function<Item.Properties, Item> itemFunction, Item.Properties properties) {
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Coffins.id(name));
+    static Item register(ResourceKey<Item> key, Function<Item.Properties, Item> itemFunction, Item.Properties properties) {
         return Registry.register(BuiltInRegistries.ITEM, key, itemFunction.apply(properties.setId(key)));
     }
 }

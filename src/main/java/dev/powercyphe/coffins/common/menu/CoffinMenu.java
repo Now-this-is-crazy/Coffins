@@ -76,7 +76,7 @@ public class CoffinMenu extends AbstractContainerMenu {
         this.updateSlots();
 
         super.initializeContents(stateId, items, carried);
-        if (Minecraft.getInstance().screen instanceof CoffinScreen coffinScreen) {
+        if (Minecraft.getInstance().gui.screen() instanceof CoffinScreen coffinScreen) {
             coffinScreen.scroller.updateScrollbar();
         }
     }

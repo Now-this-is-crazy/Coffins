@@ -17,6 +17,7 @@ loom {
 fabricApi {
     configureDataGeneration {
         client = true
+        modId = "coffins"
     }
 }
 
@@ -40,6 +41,7 @@ dependencies {
     // Built-in Compatibility
     implementation "eu.pb4:trinkets:${project.trinkets_version}"
     implementation "maven.modrinth:combat-amenities:${project.combat_amenities_version}"
+    implementation "maven.modrinth:midnightlib:1.10.0+26.2-fabric"
 }
 
 processResources {

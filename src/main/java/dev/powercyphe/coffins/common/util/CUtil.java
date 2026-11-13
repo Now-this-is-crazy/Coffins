@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemStackWithSlot;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
@@ -333,7 +334,7 @@ public interface CUtil {
     static List<ItemStack> collectTridents(ServerPlayer player, ServerLevel level) {
         List<ItemStack> stacks = new ArrayList<>();
 
-        level.getEntities(EntityType.TRIDENT, trident -> player == trident.getOwner()
+        level.getEntities(EntityTypes.TRIDENT, trident -> player == trident.getOwner()
                         && trident.pickup == AbstractArrow.Pickup.ALLOWED)
                 .forEach(trident -> {
                         stacks.add(((AbstractArrowAccessor) trident).coffins$getPickupItem().copy());
