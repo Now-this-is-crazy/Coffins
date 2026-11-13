@@ -41,6 +41,7 @@ public class Coffins implements ModInitializer {
         ServerPlayerEvents.JOIN.register(GameruleSyncEvent::syncAll);
         GameRuleEvents.changeCallback(CGamerules.COFFIN_PROTECTION_TIME).register(GameruleSyncEvent::syncCoffinProtectionTime);
         GameRuleEvents.changeCallback(CGamerules.COFFIN_GLOW_DISTANCE).register(GameruleSyncEvent::syncCoffinGlowDistance);
+        GameRuleEvents.changeCallback(CGamerules.COFFIN_ACCESSIBLE_OUTSIDE_WORLDBORDER).register(GameruleSyncEvent::syncCoffinAccessibleOutsideWorldborder);
         GameRuleEvents.changeCallback(CGamerules.TWEAK_RECOVERY_COMPASS).register(GameruleSyncEvent::syncTweakRecoveryCompass);
 
         CommandRegistrationCallback.EVENT.register(new CoffinsCommand());

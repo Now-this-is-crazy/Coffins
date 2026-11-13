@@ -1,6 +1,7 @@
 package dev.powercyphe.coffins.common.block;
 
 import com.mojang.serialization.MapCodec;
+import dev.powercyphe.coffins.common.init.CBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,6 +33,12 @@ public class CoffinBlock extends BaseEntityBlock {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(OPEN, false)
                 .setValue(FACING, Direction.UP));
+    }
+
+    public static boolean isGraveCoffin(Level level, BlockPos blockPos) {
+        BlockState state = level.getBlockState(blockPos);
+        return state.is(CBlocks.COFFIN) && level.getBlockEntity(blockPos) instanceof CoffinBlockEntity coffin
+                && coffin.isGrave();
     }
 
     @Override

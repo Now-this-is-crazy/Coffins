@@ -12,6 +12,7 @@ public interface CPayloads {
     static void init() {
         PayloadTypeRegistry.clientboundPlay().register(SyncCoffinProtectionTimePayload.TYPE, SyncCoffinProtectionTimePayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SyncCoffinGlowDistancePayload.TYPE, SyncCoffinGlowDistancePayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncCoffinAccessibleOutsideWorldborderPayload.TYPE, SyncCoffinAccessibleOutsideWorldborderPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SyncTweakRecoveryCompassPayload.TYPE, SyncTweakRecoveryCompassPayload.CODEC);
 
         PayloadTypeRegistry.clientboundPlay().register(CoffinDeathDataPayload.TYPE, CoffinDeathDataPayload.CODEC);
@@ -27,6 +28,7 @@ public interface CPayloads {
     static void initClient() {
         ClientPlayNetworking.registerGlobalReceiver(SyncCoffinProtectionTimePayload.TYPE, SyncCoffinProtectionTimePayload::handle);
         ClientPlayNetworking.registerGlobalReceiver(SyncCoffinGlowDistancePayload.TYPE, SyncCoffinGlowDistancePayload::handle);
+        ClientPlayNetworking.registerGlobalReceiver(SyncCoffinAccessibleOutsideWorldborderPayload.TYPE, SyncCoffinAccessibleOutsideWorldborderPayload::handle);
         ClientPlayNetworking.registerGlobalReceiver(SyncTweakRecoveryCompassPayload.TYPE, SyncTweakRecoveryCompassPayload::handle);
 
         ClientPlayNetworking.registerGlobalReceiver(CoffinDeathDataPayload.TYPE, CoffinDeathDataPayload::handle);

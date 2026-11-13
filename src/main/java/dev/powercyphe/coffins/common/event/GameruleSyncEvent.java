@@ -1,5 +1,6 @@
 package dev.powercyphe.coffins.common.event;
 
+import dev.powercyphe.coffins.common.payload.SyncCoffinAccessibleOutsideWorldborderPayload;
 import dev.powercyphe.coffins.common.payload.SyncCoffinGlowDistancePayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -20,6 +21,7 @@ public class GameruleSyncEvent {
 
         syncCoffinProtectionTime(rules.get(CGamerules.COFFIN_PROTECTION_TIME), server);
         syncCoffinGlowDistance(rules.get(CGamerules.COFFIN_GLOW_DISTANCE), server);
+        syncCoffinAccessibleOutsideWorldborder(rules.get(CGamerules.COFFIN_ACCESSIBLE_OUTSIDE_WORLDBORDER), server);
         syncTweakRecoveryCompass(rules.get(CGamerules.TWEAK_RECOVERY_COMPASS), server);
     }
 
@@ -29,6 +31,10 @@ public class GameruleSyncEvent {
 
     public static void syncCoffinGlowDistance(Integer value, MinecraftServer server) {
         sendToAll(server, () -> new SyncCoffinGlowDistancePayload(value));
+    }
+
+    public static void syncCoffinAccessibleOutsideWorldborder(Boolean value, MinecraftServer server) {
+        sendToAll(server, () -> new SyncCoffinAccessibleOutsideWorldborderPayload(value));
     }
 
     public static void syncTweakRecoveryCompass(Boolean value, MinecraftServer server) {
