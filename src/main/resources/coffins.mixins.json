@@ -11,9 +11,12 @@
     "accessor.AbstractArrowAccessor",
     "accessor.BaseContainerBlockEntityAccessor",
     "coffin.ServerExplosionMixin",
-    "coffin.ServerPlayerMixin"
+    "coffin.ServerPlayerMixin",
+    "interaction.ServerLevelMixin"
   ],
   "client": [
+    "interaction.client.LevelRendererMixin",
+    "interaction.client.MultiPlayerGameModeMixin",
     "recovery_compass.client.GuiMixin",
     "recovery_compass.client.LocalPlayerMixin",
     "recovery_compass.client.QuadParticleGroupMixin"

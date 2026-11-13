@@ -14,8 +14,9 @@ public interface CGamerules {
     GameRule<Integer> COFFIN_PROTECTION_TIME = registerInt("coffin_protection_time", GameRuleCategory.PLAYER, -1, Integer.MAX_VALUE, 0);
     GameRule<Integer> COFFIN_STORED_EXPERIENCE = registerInt("coffin_stored_experience", GameRuleCategory.PLAYER, 0, 100, 100);
     GameRule<Integer> COFFIN_GLOW_DISTANCE = registerInt("coffin_glow_distance", GameRuleCategory.PLAYER, 0, 128, 64);
-
     GameRule<Boolean> COFFIN_REQUIRES_ITEM = registerBoolean("coffin_requires_item", GameRuleCategory.PLAYER, false);
+    GameRule<Boolean> COFFIN_ACCESSIBLE_OUTSIDE_WORLDBORDER = registerBoolean("coffin_accessible_outside_worldborder", GameRuleCategory.PLAYER, true);
+
     GameRule<Boolean> TWEAK_RECOVERY_COMPASS = registerBoolean("tweak_recovery_compass", GameRuleCategory.PLAYER, true);
     GameRule<Boolean> KEEP_POST_RESPAWN_ITEMS = registerBoolean("keep_post_respawn_items", GameRuleCategory.PLAYER, true);
 
