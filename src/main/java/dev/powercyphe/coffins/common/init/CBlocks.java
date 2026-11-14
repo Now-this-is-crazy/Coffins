@@ -15,7 +15,7 @@ import java.util.function.Function;
 public interface CBlocks {
 
     Block COFFIN = registerWithoutItem(CBlockItemIds.COFFIN.block(), CoffinBlock::new, BlockBehaviour.Properties.of()
-            .strength(3F, 9999).pushReaction(PushReaction.IGNORE)
+            .strength(3F, 9999).pushReaction(PushReaction.IMMOVEABLE)
             .sound(SoundType.WOOD).mapColor(MapColor.WOOD));
 
     static void init() {}

@@ -24,8 +24,6 @@ import dev.powercyphe.coffins.common.block.entity.CoffinBlockEntity;
 import dev.powercyphe.coffins.common.payload.CoffinDeathDataPayload;
 
 public class CoffinBlock extends BaseEntityBlock {
-    public static final MapCodec<CoffinBlock> CODEC = simpleCodec(CoffinBlock::new);
-
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
@@ -55,11 +53,6 @@ public class CoffinBlock extends BaseEntityBlock {
             }
         }
         return super.getDestroyProgress(state, player, level, pos);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

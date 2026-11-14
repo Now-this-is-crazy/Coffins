@@ -1,13 +1,7 @@
 package dev.powercyphe.coffins.client.init;
 
-import com.mojang.blaze3d.PrimitiveTopology;
-import com.mojang.blaze3d.pipeline.BlendFunction;
-import com.mojang.blaze3d.pipeline.ColorTargetState;
-import com.mojang.blaze3d.pipeline.DepthStencilState;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.renderpearl.api.pipeline.*;
 import dev.powercyphe.coffins.common.Coffins;
 import net.minecraft.client.renderer.BindGroupLayouts;
 
@@ -17,7 +11,8 @@ public interface CPipelines {
 
     RenderPipeline PING_PARTICLE = register(RenderPipeline.builder(GLOBALS_SNIPPET)
             .withLocation(Coffins.id("pipeline/ping_particle"))
-            .withBindGroupLayout(BindGroupLayouts.MATRICES_PROJECTION)
+            .withBindGroupLayout(BindGroupLayouts.PROJECTION)
+            .withBindGroupLayout(BindGroupLayouts.DYNAMIC_TRANSFORMS)
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0)
             .withVertexShader("core/position_tex_color")
             .withFragmentShader("core/position_tex_color")

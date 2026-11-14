@@ -1,6 +1,7 @@
 package dev.powercyphe.coffins.client;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
@@ -31,7 +32,7 @@ public class CoffinsClient implements ClientModInitializer {
         BlockEntityRenderers.register(CBlockEntityTypes.COFFIN, CoffinBlockEntityRenderer::new);
         MenuScreens.register(CMenuTypes.COFFIN, CoffinScreen::new);
 
-        LevelRenderEvents.END_EXTRACTION.register(new RenderCoffinOutlineEvent());
+        LevelExtractionEvents.END_EXTRACTION.register(new RenderCoffinOutlineEvent());
 
         FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(this::registerResourcePacks);
     }

@@ -17,7 +17,7 @@ public class NonGraveCoffinCondition implements LootItemCondition {
 
     @Override
     public boolean test(LootContext context) {
-        BlockEntity entity = context.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        BlockEntity entity = context.getOptional(LootContextParams.BLOCK_ENTITY);
         if (entity instanceof CoffinBlockEntity coffin) {
             return !coffin.isGrave();
         }

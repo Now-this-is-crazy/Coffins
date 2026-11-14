@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "coffins:coffin"
+        "recipes": "coffins:coffin"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

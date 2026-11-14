@@ -33,9 +33,9 @@ public class CModelProvider extends FabricModelProvider {
 
     public void createCoffin(BlockModelGenerators gen, Block block) {
         Material openTop = TextureMapping.getBlockTexture(block, "_top_open");
-        MultiVariant closedModel = plainVariant(TexturedModel.CUBE_TOP_BOTTOM.create(block, gen.modelOutput));
+        MultiVariant closedModel = plainVariant(TexturedModel.CUBE_BOTTOM_TOP.create(block, gen.modelOutput));
         MultiVariant openModel = plainVariant(
-                TexturedModel.CUBE_TOP_BOTTOM
+                TexturedModel.CUBE_BOTTOM_TOP
                         .get(block)
                         .updateTextures(t -> t.put(TextureSlot.TOP, openTop))
                         .createWithSuffix(block, "_open", gen.modelOutput)
